@@ -1,0 +1,79 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title>Список проектов</title>
+
+    </head>
+
+    {% include 'base.html' %}
+
+    <br>
+
+    <body>
+
+        {% for project in projects %}
+
+        <div class="container bg-white shadow-md p-5 form-layout" style="margin-top:20px;">
+
+            <h5><strong>Название проекта: {{ project.name }}</strong></h5>
+
+                <br>
+
+            <p><strong>Описание проекта: </strong>{{ project.description }}</p>
+
+            <h4>Задачи в проекте:</h4>
+
+            {% if project.task_set.all %}
+
+                    {% for task in project.task_set.all %}
+
+                            Название задачи: <strong>{{ task.title }}</strong>
+                            <br>
+                            Статус: {{ task.get_status_display }}
+                            <br>
+                            Приоритет: {{ task.get_priority_display }}
+                            <br>
+                            Ответственный: {{ task.responsible.username|default:"Не назначен" }}
+                            <br>
+                            Срок выполнения: {{ task.due_date|date:"d.m.Y H:i" }}
+                            <br>
+                            <a href="{% url 'update-task' task.id %}">Редактировать</a>
+                            <br><br>
+
+                    {% endfor %}
+
+            {% else %}
+                <p>Нет задач в этом проекте.</p>
+            {% endif %}
+
+        </div>
+
+         {% endfor %}
+
+        <br>
+
+
+
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+    <title>{{ task.title }}</title>
+
+    </head>
+
+    {% include 'base.html' %}
+
+    <br>
+
+    <body>
+
+        <div class="container mt-4">
+
+            <div class="container bg-white shadow-md p-4 mb-4 rounded">
+
+                <h4><strong>Название задачи: </strong>{{ task.title }}</h4>
+
+                <p><strong>Описание задачи: </strong>{{ task.content }}</p>
+
+                <h4>Добавить комментарий:</h4>
+
+                <form method="post" >
+
+                    {% csrf_token %}
+
+                    {{ form.content }}
+
+                    <br><br>
+
+                    <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+
+                </form>
+
+                <br><br>
+
+                <h5>Комментарии:</h5>
+
+                <ul>
+
+                    {% for comment in comments %}
+
+                    <li><strong>{{ comment.user.username }}:</strong> {{ comment.content }} ({{ comment.created_at }})</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

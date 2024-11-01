@@ -1,0 +1,69 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title>Вход</title>
+    </head>
+
+    {% include 'pre-base.html' %}
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h3>Вход</h3>
+
+        <hr>
+
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            {{form.email|as_crispy_field}}
+
+            <br>
+
+            {{form.password|as_crispy_field}}
+
+            <br>
+
+            <input class="btn btn-primary navbar-btn" type="submit" value="Войти"/>
+
+            <br><br>
+
+            {% for message in messages %}
+
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+                    <p class="alert alert-primary float-center text-center"> {{message}} </p>
+
+                {% endif %}
+
+            {% endfor %}
+
+            <br> <br>
+
+        </form>
+
+        <br>
+
+        <p><a href="{% url 'password_reset' %}"> Забыли пароль? </a></p>
+
+        <p>У вас нет аккаунта? <a href="{% url 'register' %}"> Зарегистрируйтесь. </a></p>
+
+        <a href="{% url 'home' %}"> Вернуться на главную страницу </a>
+
+    </div>
+
+</html>

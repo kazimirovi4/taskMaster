@@ -1,0 +1,38 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title>Панель управления</title>
+
+    </head>
+
+    {% include 'base.html' %}
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout" style="margin-top:20px;">
+
+        <h3>TaskMaster</h3>
+
+        <hr>
+
+        <p>Добро пожаловать в TaskMaster - <br> <br> ваше персональное приложение по управлению задачами.</p>
+
+        <br>
+
+         <a class="btn btn-info" href="{% url 'notification-preferences' %}">Настройка уведомлений</a>
+
+
+    </div>
+
+</html>

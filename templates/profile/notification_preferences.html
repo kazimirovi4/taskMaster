@@ -1,0 +1,76 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title>Панель управления</title>
+
+    </head>
+
+    {% include 'base.html' %}
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout" style="margin-top:20px;">
+
+        <h1>Настройки Уведомлений</h1>
+
+        <form method="post" action="{% url 'notification-preferences' %}">
+            {% csrf_token %}
+            <div>
+                <label for="email_notifications">Уведомления по электронной почте:</label>
+                <input type="checkbox" id="email_notifications" name="email_notifications"
+                       {% if preferences.email_notifications %}checked{% endif %}>
+            </div>
+            <br>
+
+            <div>
+                <label for="sms_notifications">SMS-уведомления:</label>
+                <input type="checkbox" id="sms_notifications" name="sms_notifications"
+                       {% if preferences.sms_notifications %}checked{% endif %}>
+            </div>
+            <br>
+
+            <div>
+                <label for="push_notifications">Push-уведомления:</label>
+                <input type="checkbox" id="push_notifications" name="push_notifications"
+                       {% if preferences.push_notifications %}checked{% endif %}>
+            </div>
+            <br>
+
+            <button class="btn btn-info" type="submit">Сохранить Настройки</button>
+        </form>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <a href="{% url 'dashboard' %}">Вернуться на главную панель</a>
+
+    </div>
+
+</html>
+
+
+
+
+
+
+
+<body>
+
+</body>
+</html>
